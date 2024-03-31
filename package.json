@@ -21,6 +21,7 @@
     "postgres": "^3.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "server-only": "^0.0.1",
     "uploadthing": "^6.7.0",
     "zod": "^3.22.4"
   },
