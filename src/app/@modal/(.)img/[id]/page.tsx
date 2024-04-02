@@ -1,4 +1,6 @@
 import { getImage } from "~/server/queries";
+import { Modal } from "./modal";
+import Image from "next/image";
 
 export default async function PhotoModal({
   params: { id: photoId },
@@ -10,8 +12,15 @@ export default async function PhotoModal({
 
   const image = await getImage(idAsNumber);
   return (
-    <div>
-      <img src={image.url} className="w-96" />
-    </div>
+    <Modal>
+      <div className="flex h-screen w-screen items-center justify-center">
+        <Image
+          src={image.url}
+          style={{ objectFit: "contain" }}
+          fill
+          alt={image.name}
+        />
+      </div>
+    </Modal>
   );
 }
