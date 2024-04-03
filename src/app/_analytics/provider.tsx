@@ -10,6 +10,7 @@ if (typeof window !== "undefined") {
     ui_host: "https://app.posthog.com",
   });
 }
+
 export function CSPostHogProvider({ children }: { children: React.ReactNode }) {
   return (
     <PostHogProvider client={posthog}>
