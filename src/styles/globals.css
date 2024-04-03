@@ -79,3 +79,12 @@ dialog:modal {
   max-width: 100vw;
   max-height: 100vh;
 }
+.spinner_ajPY {
+  transform-origin: center;
+  animation: spinner_AtaB 0.75s infinite linear;
+}
+@keyframes spinner_AtaB {
+  100% {
+    transform: rotate(360deg);
+  }
+}
