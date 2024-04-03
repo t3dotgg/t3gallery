@@ -15,5 +15,12 @@
 - [x] Routing/image page (parallel route)
 - [x] Update upload button to be less cringe
 - [x] Analytics (posthog)
-- [ ] Delete button (w/ Server Actions)
-- [ ] Ratelimiting (upstash)
+- [x] Delete button (w/ Server Actions)
+- [x] Ratelimiting (upstash)
+
+## A challenge to the viewer
+
+- Fix the page layout for images of different resolutions
+- "Selecting" images on the gallery page
+- "infinite scroll"
+- Folders/albums
