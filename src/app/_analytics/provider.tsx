@@ -2,13 +2,25 @@
 import { useAuth, useUser } from "@clerk/nextjs";
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 if (typeof window !== "undefined") {
   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
     api_host: "/ingest",
     ui_host: "https://app.posthog.com",
   });
+}
+
+function usePrevious<T>(value: T) {
+  const [current, setCurrent] = useState(value);
+  const [previous, setPrevious] = useState<T>();
+
+  if (value !== current) {
+    setPrevious(current);
+    setCurrent(value);
+  }
+
+  return previous;
 }
 
 export function CSPostHogProvider({ children }: { children: React.ReactNode }) {
@@ -20,8 +32,10 @@ export function CSPostHogProvider({ children }: { children: React.ReactNode }) {
 }
 
 function PostHogAuthWrapper({ children }: { children: React.ReactNode }) {
-  const auth = useAuth();
   const userInfo = useUser();
+  const auth = useAuth();
+  const isSignedIn = auth?.isSignedIn ?? false;
+  const wasSignedIn = usePrevious(isSignedIn);
 
   useEffect(() => {
     if (userInfo.user) {
@@ -29,10 +43,12 @@ function PostHogAuthWrapper({ children }: { children: React.ReactNode }) {
         email: userInfo.user.emailAddresses[0]?.emailAddress,
         name: userInfo.user.fullName,
       });
-    } else if (!auth.isSignedIn) {
+    }
+
+    if (wasSignedIn) {
       posthog.reset();
     }
-  }, [auth, userInfo]);
+  }, [wasSignedIn, userInfo]);
 
   return children;
 }
