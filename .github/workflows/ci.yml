@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_URL: 'postgresql://postgres:password@localhost:5432/garo'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@v3.0.0
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: true
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
