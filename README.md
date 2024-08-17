@@ -1,6 +1,6 @@
 # T3 Gallery
 
-The codebase from Theo's [T3 App Router Tutorial on YouTube](https://github.com/t3dotgg/t3gallery)
+The codebase from Theo's [T3 App Router Tutorial on YouTube](https://www.youtube.com/watch?v=d5x0JCZbAJs)
 
 ## TODO
 
